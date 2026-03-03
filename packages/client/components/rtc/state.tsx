@@ -383,6 +383,13 @@ class Voice {
   async toggleMute() {
     const room = this.room();
     if (!room) throw "invalid state";
+
+    // if user is deafened, don't allow them to unmute
+    if (this.deafen()) {
+      debugLog("PTT-WEB", "Cannot unmute while deafened");
+      return;
+    }
+
     await room.localParticipant.setMicrophoneEnabled(
       !room.localParticipant.isMicrophoneEnabled,
     );
@@ -412,6 +419,12 @@ class Voice {
     const room = this.room();
     if (!room) {
       debugLog("PTT-WEB", "setMute() - no room, returning");
+      return;
+    }
+
+    // if user is deafened, don't allow them to unmute
+    if (this.deafen()) {
+      debugLog("PTT-WEB", "Cannot unmute while deafened");
       return;
     }
 
