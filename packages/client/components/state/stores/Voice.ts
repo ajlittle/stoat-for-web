@@ -23,6 +23,9 @@ export interface TypeVoice {
   inputVolume: number;
   outputVolume: number;
 
+  noiseGateEnabled: boolean;
+  noiseGateThreshold: number;
+
   userVolumes: Record<string, number>;
   userMutes: Record<string, boolean>;
 
@@ -77,6 +80,8 @@ export class Voice extends AbstractStore<"voice", TypeVoice> {
       noiseSupression: "browser",
       inputVolume: 1.0,
       outputVolume: 1.0,
+      noiseGateEnabled: false,
+      noiseGateThreshold: -50,
       userVolumes: {},
       userMutes: {},
       pushToTalkEnabled: false,
@@ -135,6 +140,18 @@ export class Voice extends AbstractStore<"voice", TypeVoice> {
 
     if (typeof input.outputVolume === "number") {
       data.outputVolume = input.outputVolume;
+    }
+
+    if (typeof input.noiseGateEnabled === "boolean") {
+      data.noiseGateEnabled = input.noiseGateEnabled;
+    }
+
+    if (
+      typeof input.noiseGateThreshold === "number" &&
+      input.noiseGateThreshold >= -100 &&
+      input.noiseGateThreshold <= 0
+    ) {
+      data.noiseGateThreshold = input.noiseGateThreshold;
     }
 
     if (typeof input.userVolumes === "object") {
@@ -340,10 +357,38 @@ export class Voice extends AbstractStore<"voice", TypeVoice> {
   }
 
   /**
-   * Get noise supression
+   * Get output volume
    */
   get outputVolume(): number {
     return this.get().outputVolume;
+  }
+
+  /**
+   * Set noise gate enabled
+   */
+  set noiseGateEnabled(value: boolean) {
+    this.set("noiseGateEnabled", value);
+  }
+
+  /**
+   * Get noise gate enabled
+   */
+  get noiseGateEnabled(): boolean {
+    return this.get().noiseGateEnabled;
+  }
+
+  /**
+   * Set noise gate threshold (dB)
+   */
+  set noiseGateThreshold(value: number) {
+    this.set("noiseGateThreshold", value);
+  }
+
+  /**
+   * Get noise gate threshold (dB)
+   */
+  get noiseGateThreshold(): number {
+    return this.get().noiseGateThreshold;
   }
 
   /**
