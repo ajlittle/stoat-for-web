@@ -60,11 +60,12 @@ export class NoiseGateProcessor {
       await this.#upstream.init(opts);
       inputTrack = this.#upstream.processedTrack;
     } else {
-      inputTrack = opts.track?.mediaStreamTrack;
+      // LiveKit passes the raw MediaStreamTrack as opts.track
+      inputTrack = opts.track instanceof MediaStreamTrack ? opts.track : opts.track?.mediaStreamTrack;
     }
 
     if (!inputTrack) {
-      console.warn("[NoiseGate] No input track available, processor not initialized");
+      console.warn("[NoiseGate] No input track available, processor not initialized. opts.track:", opts.track);
       return;
     }
 
