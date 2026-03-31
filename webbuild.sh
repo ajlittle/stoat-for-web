@@ -10,7 +10,8 @@ pnpm --filter solid-livekit-components build
 pnpm --filter @lingui-solid/babel-plugin-lingui-macro build
 pnpm --filter @lingui-solid/babel-plugin-extract-messages build
 
-# lingui:compile
+# lingui:extract + compile
+pnpm --filter client exec lingui extract
 pnpm --filter client exec lingui compile --typescript
 
 # install:assets

@@ -3,7 +3,12 @@ import { Show, createEffect, createSignal, on, onCleanup } from "solid-js";
 import { Trans } from "@lingui-solid/solid/macro";
 
 import { useState } from "@revolt/state";
-import { CategoryButton, Checkbox, Column, Text } from "@revolt/ui";
+import {
+  CategoryButton,
+  Checkbox,
+  Column,
+  Text,
+} from "@revolt/ui";
 import { CategoryCollapse } from "@revolt/ui/components/design/CategoryButton";
 import { useVoice } from "../../../../../rtc/state";
 
@@ -31,6 +36,15 @@ export function VoiceProcessingOptions() {
         </CategoryButton>
         <CategoryButton
           icon="blank"
+          action={<Checkbox checked={state.voice.autoGainControl} />}
+          onClick={() =>
+            (state.voice.autoGainControl = !state.voice.autoGainControl)
+          }
+        >
+          <Trans>Automatic Gain Control</Trans>
+        </CategoryButton>
+        <CategoryButton
+          icon="blank"
           action={<Checkbox checked={state.voice.noiseGateEnabled} />}
           onClick={() =>
             (state.voice.noiseGateEnabled = !state.voice.noiseGateEnabled)
@@ -38,15 +52,6 @@ export function VoiceProcessingOptions() {
           description={<Trans>Silence your mic when you're not speaking</Trans>}
         >
           <Trans>Noise Gate</Trans>
-        </CategoryButton>
-        <CategoryButton
-          icon="blank"
-          action={<Checkbox checked={state.voice.autoGainControl} />}
-          onClick={() =>
-            (state.voice.autoGainControl = !state.voice.autoGainControl)
-          }
-        >
-          <Trans>Automatic Gain Control</Trans>
         </CategoryButton>
       </CategoryButton.Group>
       <Show when={state.voice.noiseGateEnabled}>
@@ -112,10 +117,7 @@ function NoiseGateSettings() {
       };
       measure();
     } catch (err) {
-      console.warn(
-        "[NoiseGate] Could not access microphone for level meter:",
-        err,
-      );
+      console.warn("[NoiseGate] Could not access microphone for level meter:", err);
     }
   }
 
@@ -213,10 +215,7 @@ function NoiseGateMeter(props: {
     const pad = parseFloat(getComputedStyle(trackRef).fontSize) * 0.625;
     const trackLeft = rect.left + pad;
     const trackWidth = rect.width - pad * 2;
-    const percent = Math.max(
-      0,
-      Math.min(1, (e.clientX - trackLeft) / trackWidth),
-    );
+    const percent = Math.max(0, Math.min(1, (e.clientX - trackLeft) / trackWidth));
     const db = Math.round(-60 + percent * 60);
     props.onThresholdChange(db);
   };
@@ -290,6 +289,7 @@ function NoiseGateMeter(props: {
           "box-shadow": "var(--md-sys-color-shadow) 0 1px 3px",
         }}
       />
+
     </div>
   );
 }
