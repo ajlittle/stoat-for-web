@@ -37,8 +37,6 @@ export function PushToTalkSettings() {
   return (
     <Column gap="lg">
       <Column>
-
-
         <SettingsToggleGroup>
           <SettingsToggleButton
             checked={state.voice.pushToTalkEnabled}
@@ -55,7 +53,10 @@ export function PushToTalkSettings() {
 
       <Show when={state.voice.pushToTalkEnabled}>
         <Column gap="md">
-          
+          <Text class="label" rootClass={sectionHeading}>
+            <Trans id="ptt.settings.keybind">Push to Talk Keybind</Trans>
+          </Text>
+
           <KeybindInput
             value={state.voice.pushToTalkKeybind}
             onChange={(value) => {
@@ -67,7 +68,7 @@ export function PushToTalkSettings() {
         </Column>
 
         <Column>
-          <Text class={`label ${sectionHeading}`}>
+          <Text class="label" rootClass={sectionHeading}>
             <Trans id="ptt.settings.notifications">Notification Sounds</Trans>
           </Text>
           <SettingsToggleGroup>
@@ -92,7 +93,7 @@ export function PushToTalkSettings() {
         </Column>
 
         <Column>
-          <Text class={`label ${sectionHeading}`}>
+          <Text class="label" rootClass={sectionHeading}>
             <Trans id="ptt.settings.mode">Mode</Trans>
           </Text>
           <SettingsToggleGroup>
@@ -116,10 +117,10 @@ export function PushToTalkSettings() {
         </Column>
 
         <Column gap="md">
-          <Text class={`label ${sectionHeading}`}>
+          <Text class="label" rootClass={sectionHeading}>
             <Trans id="ptt.settings.releaseDelay">Release Delay</Trans>
           </Text>
-          <Row gap="md" align="center">
+          <Row gap="md" align={true}>
             <SliderContainer>
               <Slider
                 min={0}

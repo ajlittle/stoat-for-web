@@ -38,10 +38,10 @@ export function NotificationSoundsSettings() {
       </Column>
 
       <Column gap="md">
-        <Text class={`label ${sectionHeading}`}>
+        <Text class="label" rootClass={sectionHeading}>
           <Trans id="notifications.sounds.volume">Master Volume</Trans>
         </Text>
-        <Row gap="md" align="center">
+        <Row gap="md" align={true}>
           <SliderContainer>
             <Slider
               min={0}
@@ -84,7 +84,7 @@ export function NotificationSoundsSettings() {
       </Column>
 
       <Column>
-        <Text class={`label ${sectionHeading}`}>
+        <Text class="label" rootClass={sectionHeading}>
           <Trans id="notifications.sounds.individual">Individual Sounds</Trans>
         </Text>
         <SettingsToggleGroup class={notificationToggleGroup}>
@@ -205,7 +205,7 @@ export function NotificationSoundsSettings() {
       </Column>
 
       <Column>
-        <Text class={`label ${sectionHeading}`}>
+        <Text class="label" rootClass={sectionHeading}>
           <Trans id="notifications.sounds.connection">Connection</Trans>
         </Text>
         <SettingsToggleGroup class={notificationToggleGroup}>
