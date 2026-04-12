@@ -335,6 +335,8 @@ const Base = styled("div", {
 const Card = styled("div", {
   base: {
     pointerEvents: "all",
+    display: "flex",
+    flexDirection: "column",
 
     maxWidth: "100%",
     transition: "var(--transitions-fast) all",
@@ -342,6 +344,13 @@ const Card = styled("div", {
 
     borderRadius: "var(--borderRadius-lg)",
     background: "var(--md-sys-color-secondary-container)",
+
+    "&:fullscreen, &:-webkit-full-screen": {
+      width: "100vw",
+      height: "100vh",
+      maxWidth: "none",
+      borderRadius: "0px",
+    },
   },
   variants: {
     active: {
